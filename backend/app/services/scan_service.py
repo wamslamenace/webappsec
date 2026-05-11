@@ -296,21 +296,21 @@ class ScanService:
                                 "message": f"Running OWASP ZAP active scan on {target_url}..."
                             })
                             zap_service = ZapService()
-                        zap_findings = await zap_service.run_scan(target_url)
-                        
-                        for finding in zap_findings:
-                            vulnerability = Vulnerability(
-                                scan_id=scan.id,
-                                service_name=service["service_name"],
-                                service_version=service["version"],
-                                port=service["port"],
-                                protocol=service["protocol"],
-                                description=finding["description"],
-                                severity=finding["severity"],
-                                recommendation=finding["recommendation"],
-                                status="open"
-                            )
-                            vulnerabilities.append(vulnerability)
+                            zap_findings = await zap_service.run_scan(target_url)
+                            
+                            for finding in zap_findings:
+                                vulnerability = Vulnerability(
+                                    scan_id=scan.id,
+                                    service_name=service["service_name"],
+                                    service_version=service["version"],
+                                    port=service["port"],
+                                    protocol=service["protocol"],
+                                    description=finding["description"],
+                                    severity=finding["severity"],
+                                    recommendation=finding["recommendation"],
+                                    status="open"
+                                )
+                                vulnerabilities.append(vulnerability)
             
             # Send progress update - saving data
             await manager.update_scan_progress(scan.user_id, scan.id, {
