@@ -174,55 +174,55 @@ class NmapXMLParser:
         """Identify potential vulnerabilities based on service information"""
         vulnerabilities = []
         
-        # Check for outdated versions (simplified logic)
         service_name = service.get("service_name", "").lower()
         version = service.get("version", "")
         product = service.get("product", "")
         
-        # Common vulnerable services patterns
-        vulnerable_patterns = {
-            "ssh": {"versions": ["OpenSSH 7.4", "OpenSSH 6.6"], "severity": "Medium"},
-            "http": {"versions": ["Apache 2.2", "nginx 1.10"], "severity": "High"},
-            "ftp": {"versions": ["vsftpd 2.3.4"], "severity": "Critical"},
-            "telnet": {"versions": ["*"], "severity": "High"},  # Telnet is inherently insecure
-            "smtp": {"versions": ["Postfix 2.8"], "severity": "Medium"},
-            "mysql": {"versions": ["MySQL 5.5"], "severity": "High"},
-            "postgresql": {"versions": ["PostgreSQL 9.3"], "severity": "Medium"}
+        # 1. ALWAYS add a vulnerability entry if a version is detected
+        # This ensures the CVE lookup and LLM analysis are triggered in the scan service
+        if version:
+            vulnerabilities.append({
+                "type": "version_analysis",
+                "severity": "Info", # Base severity, will be upgraded by CVE/LLM
+                "description": f"Service version detected: {product} {version}",
+                "recommendation": "Check for known vulnerabilities (CVEs) and ensure software is up to date.",
+                "cve_candidates": []
+            })
+        
+        # 2. Check for inherently insecure services
+        insecure_services = {
+            "telnet": "Telnet protocol is inherently insecure as it transmits data in plaintext.",
+            "ftp": "FTP transmits credentials in plaintext. Consider using SFTP or FTPS.",
+            "rlogin": "Rlogin is an obsolete and insecure protocol.",
+            "rsh": "Rsh is an obsolete and insecure protocol."
         }
         
-        # Check against known vulnerable patterns
-        if service_name in vulnerable_patterns:
-            pattern = vulnerable_patterns[service_name]
-            
-            # Check if version matches vulnerable versions
-            is_vulnerable = False
-            if "*" in pattern["versions"]:  # All versions vulnerable
-                is_vulnerable = True
-            elif version:
-                for vuln_version in pattern["versions"]:
-                    if vuln_version.lower() in f"{product} {version}".lower():
-                        is_vulnerable = True
-                        break
-            
-            if is_vulnerable:
-                vulnerabilities.append({
-                    "type": "outdated_version",
-                    "severity": pattern["severity"],
-                    "description": f"Potentially vulnerable {service_name} service detected",
-                    "recommendation": f"Update {service_name} to the latest version",
-                    "cve_candidates": []  # Will be populated by CVE lookup
-                })
+        if service_name in insecure_services:
+            vulnerabilities.append({
+                "type": "insecure_protocol",
+                "severity": "High",
+                "description": insecure_services[service_name],
+                "recommendation": f"Disable {service_name} and use a secure alternative like SSH.",
+                "cve_candidates": []
+            })
         
-        # Check script results for vulnerability indicators
+        # 3. Check script results for ANY relevant output
         for script in service.get("scripts", []):
             script_id = script.get("id", "")
-            if "vuln" in script_id or "cve" in script_id:
+            script_output = script.get("output", "")
+            
+            # If the script detected something (output is not empty)
+            if script_output:
+                severity = "Medium"
+                if any(x in script_id.lower() for x in ["vuln", "cve", "exploit", "warn"]):
+                    severity = "High"
+                
                 vulnerabilities.append({
                     "type": "script_detection",
-                    "severity": "Unknown",
-                    "description": f"Vulnerability detected by script: {script_id}",
-                    "recommendation": "Review script output and apply appropriate patches",
-                    "script_output": script.get("output", ""),
+                    "severity": severity,
+                    "description": f"Potential issue detected by Nmap script '{script_id}'",
+                    "recommendation": "Review script output and apply appropriate security measures.",
+                    "script_output": script_output,
                     "cve_candidates": []
                 })
         
