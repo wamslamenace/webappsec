@@ -1,0 +1,405 @@
+{
+  "common": {
+    "appName": "VulnPatch AI",
+    "dashboard": "Dashboard",
+    "uploadScan": "Upload Scan",
+    "scanHistory": "Scan History",
+    "search": "Search",
+    "vulnerabilities": "Vulnerabilities",
+    "reports": "Reports",
+    "aiAssistant": "AI Assistant",
+    "adminDashboard": "Admin Dashboard",
+    "logout": "Logout",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "submit": "Submit",
+    "refresh": "Refresh",
+    "all": "All",
+    "rename": "Rename",
+    "archive": "Archive",
+    "you": "You",
+    "untitled": "Untitled Conversation",
+    "download": "Download",
+    "preview": "Preview",
+    "confirm": "Confirm",
+    "export": "Export Data",
+    "copy": "Copy to clipboard",
+    "copied": "Copied to clipboard!",
+    "switchMode": "Switch to {{mode}} mode",
+    "light": "light",
+    "dark": "dark"
+  },
+  "dashboard": {
+    "title": "Security Dashboard",
+    "totalScans": "Total Scans",
+    "totalVulnerabilities": "Total Vulnerabilities",
+    "patchCompletion": "Patch Completion",
+    "avgCvssScore": "Avg CVSS Score",
+    "trends": "Vulnerability Trends (Last 30 Days)",
+    "severityDistribution": "Severity Distribution",
+    "criticalAlert": "{{count}} Critical Vulnerabilities Detected",
+    "immediateAction": "Immediate action required! Please review and patch critical vulnerabilities as soon as possible.",
+    "errorLoading": "Failed to load dashboard data",
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
+  },
+  "scanUpload": {
+    "title": "Upload Nmap Scan",
+    "dropzone": {
+      "active": "Drop the XML files here...",
+      "inactive": "Drag & drop Nmap XML files here, or click to select",
+      "supports": "Supports multiple files up to 10MB each"
+    },
+    "selectFiles": "Select Files",
+    "liveScan": {
+      "title": "Live Nmap Scan",
+      "description": "Enter a target (domain name or IP address) to perform a real-time scan directly from our server.",
+      "targetLabel": "Target Host (e.g., google.com or 192.168.1.1)",
+      "scanType": "Scan Type",
+      "startScan": "Start Scan",
+      "scanning": "Scanning...",
+      "initializing": "Initializing scan...",
+      "performing": "Performing Nmap Scan...",
+      "note": "Note: Deep scans may take several minutes to complete.",
+      "errorTarget": "Please enter a target (IP or Domain)",
+      "success": "Scan completed successfully!"
+    },
+    "recentUploads": "Recent Uploads",
+    "uploaded": "Uploaded",
+    "size": "Size",
+    "instructions": {
+      "title": "Upload Instructions",
+      "item1": "Upload Nmap XML scan results for vulnerability analysis",
+      "item2": "Files will be automatically parsed and analyzed using AI",
+      "item3": "Processing typically takes 30-60 seconds per file",
+      "item4": "You can view results in the Dashboard and Vulnerabilities sections"
+    },
+    "whatIsNmap": {
+      "title": "What is Nmap & How to Generate XML Scans",
+      "description": "Nmap is a powerful network scanning tool used to discover hosts, services, and security vulnerabilities on computer networks.",
+      "generateCommands": "Generate Nmap XML files with these commands:",
+      "copyCommand": "Copy command",
+      "ubuntu": "Ubuntu/Linux:",
+      "macos": "macOS:",
+      "note": "Replace <target_ip> with the actual IP address or hostname you want to scan. The -sV flag detects service versions, -sC runs default scripts, and -oX outputs results in XML format."
+    },
+    "uploading": "Uploading and processing...",
+    "errorXmlOnly": "Only XML files are allowed",
+    "errorSize": "File size must be less than 10MB",
+    "errorUpload": "Upload failed",
+    "errorScanStart": "Scan failed to start"
+  },
+  "vulnerabilities": {
+    "title": "Vulnerabilities",
+    "filters": {
+      "severity": "Severity",
+      "status": "Status",
+      "searchPlaceholder": "Search by service name or description..."
+    },
+    "noVulns": "No vulnerabilities found",
+    "uploadToView": "Upload a scan file to view vulnerabilities",
+    "table": {
+      "service": "Service",
+      "port": "Port",
+      "severity": "Severity",
+      "cveId": "CVE ID",
+      "cvssScore": "CVSS Score",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "open": "Open",
+      "patched": "Patched",
+      "ignored": "Ignored",
+      "false_positive": "False Positive"
+    },
+    "details": {
+      "title": "Vulnerability Details",
+      "sourceFile": "Source File",
+      "protocol": "Protocol",
+      "description": "Description",
+      "recommendations": "Recommendations",
+      "terminalCommands": "Terminal Commands",
+      "terminalNote": "Execute these commands to remediate the vulnerability. Always review commands before execution."
+    },
+    "feedback": {
+      "title": "Provide Feedback",
+      "question": "How helpful was the AI recommendation for this vulnerability?",
+      "additionalComments": "Additional Comments",
+      "placeholder": "Share your thoughts on the recommendation...",
+      "errorSubmit": "Failed to submit feedback"
+    },
+    "delete": {
+      "title": "Confirm Deletion",
+      "question": "Are you sure you want to delete this vulnerability?",
+      "errorDelete": "Failed to delete vulnerability"
+    },
+    "errorLoad": "Failed to load vulnerabilities",
+    "errorUpdateStatus": "Failed to update status",
+    "errorRefreshCVE": "Failed to refresh CVE data",
+    "refreshCVETitle": "Refresh CVE Data"
+  },
+  "aiAssistant": {
+    "title": "AI Security Assistant",
+    "newChat": "New Chat",
+    "history": "Conversation History",
+    "welcomeMessage": "Hello! I'm your AI security assistant. I can help you understand your vulnerability scan results, provide recommendations, and answer questions about your security posture. What would you like to know?",
+    "suggestedQuestions": "Suggested Questions",
+    "quickActions": {
+      "title": "Quick Actions",
+      "analyzeLatest": "Analyze Latest Scan",
+      "recommendations": "Security Recommendations",
+      "riskAssessment": "Risk Assessment"
+    },
+    "tips": {
+      "title": "Tips:",
+      "item1": "Ask specific questions about CVEs",
+      "item2": "Request patch prioritization",
+      "item3": "Get explanations in business terms",
+      "item4": "Ask for remediation steps"
+    },
+    "inputPlaceholder": "Ask me anything about your vulnerabilities...",
+    "thinking": "AI is thinking...",
+    "messages": "messages",
+    "noConversations": "No conversations yet",
+    "startNew": "Start a new chat to begin",
+    "errorLoadConversations": "Failed to load conversations",
+    "errorLoadMessages": "Failed to load conversation history",
+    "errorDelete": "Failed to delete conversation",
+    "errorArchive": "Failed to archive conversation",
+    "errorUpdateTitle": "Failed to update conversation title",
+    "errorAiResponse": "Failed to get AI response",
+    "questions": [
+      "What are my most critical vulnerabilities?",
+      "How can I improve my security posture?",
+      "What services should I patch first?",
+      "Show me vulnerabilities by severity",
+      "What is my overall risk score?"
+    ]
+  },
+  "reports": {
+    "title": "Reports",
+    "generate": "Generate Report",
+    "noScans": "No completed scans available. Upload and process a scan first to generate reports.",
+    "table": {
+      "title": "Title",
+      "type": "Type",
+      "format": "Format",
+      "generated": "Generated",
+      "actions": "Actions"
+    },
+    "previewTitle": "Preview Report",
+    "downloadTitle": "Download Report",
+    "deleteTitle": "Delete Report",
+    "noReports": "No reports generated yet",
+    "generateFirst": "Generate your first report from a completed scan",
+    "dialog": {
+      "title": "Generate New Report",
+      "description": "Generate a detailed vulnerability assessment report that combines executive summary and technical analysis with AI-powered insights and remediation recommendations.",
+      "selectScan": "Select Scan",
+      "format": "Format",
+      "generating": "Generating Report...",
+      "detailedReport": "Detailed Report: This comprehensive report will include executive summary, technical vulnerability details, intelligent analysis, business impact assessment, and OS-specific remediation commands powered by advanced LLM technology.",
+      "success": "Report \"{{title}}\" generated successfully!"
+    },
+    "preview": {
+      "pdfTitle": "PDF Report Preview",
+      "pdfDescription": "PDF reports cannot be previewed directly. Click download to view the full report.",
+      "downloadPdf": "Download PDF Report",
+      "noContent": "No content available for preview."
+    },
+    "delete": {
+      "title": "Confirm Delete",
+      "question": "Are you sure you want to delete the report \"{{title}}\"?",
+      "description": "This action cannot be undone. The report file will be permanently deleted from the system.",
+      "deleting": "Deleting...",
+      "success": "Report \"{{title}}\" deleted successfully!"
+    },
+    "errorLoad": "Failed to load reports",
+    "errorGenerate": "Failed to generate report",
+    "errorDownload": "Failed to download report",
+    "errorView": "Failed to load report",
+    "errorDelete": "Failed to delete report"
+  },
+  "scanHistory": {
+    "title": "Scan History",
+    "table": {
+      "filename": "Filename",
+      "status": "Status",
+      "uploadTime": "Upload Time",
+      "fileSize": "File Size",
+      "actions": "Actions"
+    },
+    "status": {
+      "completed": "Completed",
+      "failed": "Failed",
+      "processing": "Processing",
+      "pending": "Pending"
+    },
+    "noScans": "No scans found",
+    "uploadFirst": "Upload your first Nmap scan to get started",
+    "details": {
+      "title": "Scan Details",
+      "status": "Status",
+      "uploaded": "Uploaded",
+      "processed": "Processed",
+      "summary": "Scan Summary",
+      "totalHosts": "Total Hosts",
+      "totalServices": "Total Services"
+    },
+    "delete": {
+      "title": "Confirm Delete",
+      "question": "Are you sure you want to delete the scan \"{{filename}}\"?",
+      "description": "This action cannot be undone.",
+      "error": "Failed to delete scan"
+    },
+    "errorLoad": "Failed to load scan history",
+    "errorLoadDetails": "Failed to load scan details"
+  },
+  "search": {
+    "title": "Advanced Search",
+    "placeholder": "Search vulnerabilities, scans, reports...",
+    "errorNoQuery": "Please enter a search query or apply filters",
+    "errorSearch": "Search failed",
+    "clearAll": "Clear All",
+    "advancedFilters": "Advanced Filters",
+    "dateRange": {
+      "title": "Date Range",
+      "from": "From",
+      "to": "To"
+    },
+    "severity": "Severity",
+    "services": "Services",
+    "cvssScore": {
+      "min": "Min CVSS Score",
+      "max": "Max CVSS Score"
+    },
+    "tabs": {
+      "all": "All Results ({{count}})",
+      "vulnerabilities": "Vulnerabilities ({{count}})",
+      "scans": "Scans ({{count}})",
+      "reports": "Reports ({{count}})"
+    },
+    "noResults": "No results found",
+    "tryAdjusting": "Try adjusting your search query or filters",
+    "viewAll": "View all {{count}} {{type}}",
+    "vulnerabilityResults": "Vulnerability Results",
+    "table": {
+      "service": "Service",
+      "port": "Port",
+      "severity": "Severity",
+      "cveId": "CVE ID",
+      "cvssScore": "CVSS Score",
+      "status": "Status",
+      "actions": "Actions",
+      "filename": "Filename",
+      "targetHosts": "Target Hosts",
+      "uploadDate": "Upload Date",
+      "title": "Title",
+      "type": "Type",
+      "created": "Created"
+    }
+  },
+  "admin": {
+    "title": "Admin Feedback Dashboard",
+    "refreshLearning": "Refresh Learning",
+    "tabs": {
+      "overview": "Overview & Analytics",
+      "detailed": "Detailed Feedback",
+      "system": "System Status"
+    },
+    "metrics": {
+      "totalFeedback": "Total Feedback",
+      "activeUsers": "Active Users",
+      "averageRating": "Average Rating",
+      "learningStatus": "Learning Status"
+    },
+    "learning": {
+      "title": "AI Learning System",
+      "manage": "Manage Learning",
+      "improvementsLoaded": "{{count}} improvements loaded",
+      "dialogTitle": "AI Learning Management",
+      "dialogDescription": "Apply feedback learning improvements to all analysis types. This will enhance AI responses based on user feedback patterns.",
+      "dialogAlert": "This process may take a few moments to complete. The learning system will be updated with the latest feedback insights.",
+      "errorRefresh": "Failed to refresh learning system",
+      "errorApply": "Failed to apply learning"
+    },
+    "recentFeedback": "Recent Feedback",
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear Filters",
+      "feedbackType": "Feedback Type",
+      "analysisType": "Analysis Type",
+      "minRating": "Min Rating",
+      "maxRating": "Max Rating",
+      "timePeriod": "Time Period",
+      "any": "Any",
+      "all": "All",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days",
+      "last90Days": "Last 90 days",
+      "lastYear": "Last year"
+    },
+    "table": {
+      "user": "User",
+      "rating": "Rating",
+      "type": "Type",
+      "comment": "Comment",
+      "date": "Date",
+      "actions": "Actions",
+      "id": "ID"
+    },
+    "system": {
+      "overview": "System Overview",
+      "totalUsers": "Total Users",
+      "totalFeedback": "Total Feedback",
+      "totalScans": "Total Scans",
+      "totalVulnerabilities": "Total Vulnerabilities",
+      "health": "Health Indicators",
+      "healthy": "Healthy",
+      "active": "Active",
+      "lowActivity": "Low Activity",
+      "error": "Error"
+    },
+    "delete": {
+      "title": "Confirm Delete",
+      "description": "Are you sure you want to delete this feedback entry? This action cannot be undone.",
+      "error": "Failed to delete feedback"
+    },
+    "errorLoadOverview": "Failed to load feedback overview",
+    "errorLoadDetailed": "Failed to load detailed feedback",
+    "errorLoadStatus": "Failed to load system status",
+    "errorExport": "Failed to export data"
+  },
+  "login": {
+    "title": "Login to VulnPatch AI",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Login",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "register": "Register here",
+    "error": "Invalid email or password",
+    "welcome": "Welcome back!",
+    "loggingIn": "Logging in..."
+  },
+  "commandBlock": {
+    "requiresSudo": "Requires administrator privileges",
+    "destructive": "DESTRUCTIVE",
+    "destructiveWarning": "This command makes destructive changes",
+    "destructiveAlert": "⚠️ This command makes destructive changes. Please ensure you have backups before executing."
+  }
+}

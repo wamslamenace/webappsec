@@ -1,0 +1,405 @@
+{
+  "common": {
+    "appName": "VulnPatch AI",
+    "dashboard": "Tableau de bord",
+    "uploadScan": "Télécharger un scan",
+    "scanHistory": "Historique des scans",
+    "search": "Rechercher",
+    "vulnerabilities": "Vulnérabilités",
+    "reports": "Rapports",
+    "aiAssistant": "Assistant IA",
+    "adminDashboard": "Tableau de bord administrateur",
+    "logout": "Déconnexion",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "back": "Retour",
+    "next": "Suivant",
+    "close": "Fermer",
+    "submit": "Soumettre",
+    "refresh": "Actualiser",
+    "all": "Tous",
+    "rename": "Renommer",
+    "archive": "Archiver",
+    "you": "Vous",
+    "untitled": "Conversation sans titre",
+    "download": "Télécharger",
+    "preview": "Aperçu",
+    "confirm": "Confirmer",
+    "export": "Exporter les données",
+    "copy": "Copier dans le presse-papiers",
+    "copied": "Commande copiée dans le presse-papiers !",
+    "switchMode": "Passer au mode {{mode}}",
+    "light": "clair",
+    "dark": "sombre"
+  },
+  "dashboard": {
+    "title": "Tableau de bord de sécurité",
+    "totalScans": "Total des scans",
+    "totalVulnerabilities": "Total des vulnérabilités",
+    "patchCompletion": "Complétion des correctifs",
+    "avgCvssScore": "Score CVSS moyen",
+    "trends": "Tendances des vulnérabilités (30 derniers jours)",
+    "severityDistribution": "Distribution par sévérité",
+    "criticalAlert": "{{count}} vulnérabilités critiques détectées",
+    "immediateAction": "Action immédiate requise ! Veuillez examiner et corriger les vulnérabilités critiques dès que possible.",
+    "errorLoading": "Échec du chargement des données du tableau de bord",
+    "severity": {
+      "critical": "Critique",
+      "high": "Haute",
+      "medium": "Moyenne",
+      "low": "Faible"
+    }
+  },
+  "scanUpload": {
+    "title": "Télécharger un scan Nmap",
+    "dropzone": {
+      "active": "Déposez les fichiers XML ici...",
+      "inactive": "Faites glisser et déposez des fichiers XML Nmap ici, ou cliquez pour sélectionner",
+      "supports": "Prend en charge plusieurs fichiers jusqu'à 10 Mo chacun"
+    },
+    "selectFiles": "Sélectionner des fichiers",
+    "liveScan": {
+      "title": "Scan Nmap en direct",
+      "description": "Entrez une cible (nom de domaine ou adresse IP) pour effectuer un scan en temps réel directement depuis notre serveur.",
+      "targetLabel": "Hôte cible (ex: google.com ou 192.168.1.1)",
+      "scanType": "Type de scan",
+      "startScan": "Démarrer le scan",
+      "scanning": "Scan en cours...",
+      "initializing": "Initialisation du scan...",
+      "performing": "Exécution du scan Nmap...",
+      "note": "Note : Les scans approfondis peuvent prendre plusieurs minutes.",
+      "errorTarget": "Veuillez entrer une cible (IP ou domaine)",
+      "success": "Scan terminé avec succès !"
+    },
+    "recentUploads": "Téléchargements récents",
+    "uploaded": "Téléchargé",
+    "size": "Taille",
+    "instructions": {
+      "title": "Instructions de téléchargement",
+      "item1": "Téléchargez les résultats du scan XML Nmap pour l'analyse des vulnérabilités",
+      "item2": "Les fichiers seront automatiquement analysés à l'aide de l'IA",
+      "item3": "Le traitement prend généralement 30 à 60 secondes par fichier",
+      "item4": "Vous pouvez voir les résultats dans les sections Tableau de bord et Vulnérabilités"
+    },
+    "whatIsNmap": {
+      "title": "Qu'est-ce que Nmap et comment générer des scans XML",
+      "description": "Nmap est un outil de scan réseau puissant utilisé pour découvrir des hôtes, des services et des vulnérabilités de sécurité sur les réseaux informatiques.",
+      "generateCommands": "Générez des fichiers XML Nmap avec ces commandes :",
+      "copyCommand": "Copier la commande",
+      "ubuntu": "Ubuntu/Linux :",
+      "macos": "macOS :",
+      "note": "Remplacez <target_ip> par l'adresse IP ou le nom d'hôte réel que vous souhaitez scanner. Le drapeau -sV détecte les versions de service, -sC exécute les scripts par défaut, et -oX sort les résultats au format XML."
+    },
+    "uploading": "Téléchargement et traitement...",
+    "errorXmlOnly": "Seuls les fichiers XML sont autorisés",
+    "errorSize": "La taille du fichier doit être inférieure à 10 Mo",
+    "errorUpload": "Échec du téléchargement",
+    "errorScanStart": "Le scan n'a pas pu démarrer"
+  },
+  "vulnerabilities": {
+    "title": "Vulnérabilités",
+    "filters": {
+      "severity": "Sévérité",
+      "status": "Statut",
+      "searchPlaceholder": "Rechercher par nom de service ou description..."
+    },
+    "noVulns": "Aucune vulnérabilité trouvée",
+    "uploadToView": "Téléchargez un fichier de scan pour voir les vulnérabilités",
+    "table": {
+      "service": "Service",
+      "port": "Port",
+      "severity": "Sévérité",
+      "cveId": "ID CVE",
+      "cvssScore": "Score CVSS",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "status": {
+      "open": "Ouvert",
+      "patched": "Corrigé",
+      "ignored": "Ignoré",
+      "false_positive": "Faux positif"
+    },
+    "details": {
+      "title": "Détails de la vulnérabilité",
+      "sourceFile": "Fichier source",
+      "protocol": "Protocole",
+      "description": "Description",
+      "recommendations": "Recommandations",
+      "terminalCommands": "Commandes terminal",
+      "terminalNote": "Exécutez ces commandes pour corriger la vulnérabilité. Examinez toujours les commandes avant l'exécution."
+    },
+    "feedback": {
+      "title": "Donner un avis",
+      "question": "Dans quelle mesure la recommandation de l'IA a-t-elle été utile pour cette vulnérabilité ?",
+      "additionalComments": "Commentaires supplémentaires",
+      "placeholder": "Partagez vos réflexions sur la recommandation...",
+      "errorSubmit": "Échec de l'envoi de l'avis"
+    },
+    "delete": {
+      "title": "Confirmer la suppression",
+      "question": "Êtes-vous sûr de vouloir supprimer cette vulnérabilité ?",
+      "errorDelete": "Échec de la suppression de la vulnérabilité"
+    },
+    "errorLoad": "Échec du chargement des vulnérabilités",
+    "errorUpdateStatus": "Échec de la mise à jour du statut",
+    "errorRefreshCVE": "Échec de l'actualisation des données CVE",
+    "refreshCVETitle": "Actualiser les données CVE"
+  },
+  "aiAssistant": {
+    "title": "Assistant de sécurité IA",
+    "newChat": "Nouvelle discussion",
+    "history": "Historique des conversations",
+    "welcomeMessage": "Bonjour ! Je suis votre assistant de sécurité IA. Je peux vous aider à comprendre vos résultats de scan de vulnérabilités, vous fournir des recommandations et répondre à vos questions sur votre posture de sécurité. Que souhaitez-vous savoir ?",
+    "suggestedQuestions": "Questions suggérées",
+    "quickActions": {
+      "title": "Actions rapides",
+      "analyzeLatest": "Analyser le dernier scan",
+      "recommendations": "Recommandations de sécurité",
+      "riskAssessment": "Évaluation des risques"
+    },
+    "tips": {
+      "title": "Conseils :",
+      "item1": "Posez des questions spécifiques sur les CVE",
+      "item2": "Demandez la priorité des correctifs",
+      "item3": "Obtenez des explications en termes commerciaux",
+      "item4": "Demandez les étapes de remédiation"
+    },
+    "inputPlaceholder": "Demandez-moi n'importe quoi sur vos vulnérabilités...",
+    "thinking": "L'IA réfléchit...",
+    "messages": "messages",
+    "noConversations": "Aucune conversation pour le moment",
+    "startNew": "Commencez une nouvelle discussion pour débuter",
+    "errorLoadConversations": "Échec du chargement des conversations",
+    "errorLoadMessages": "Échec du chargement de l'historique des conversations",
+    "errorDelete": "Échec de la suppression de la conversation",
+    "errorArchive": "Échec de l'archivage de la conversation",
+    "errorUpdateTitle": "Échec de la mise à jour du titre de la conversation",
+    "errorAiResponse": "Échec de l'obtention de la réponse de l'IA",
+    "questions": [
+      "Quelles sont mes vulnérabilités les plus critiques ?",
+      "Comment puis-je améliorer ma posture de sécurité ?",
+      "Quels services dois-je corriger en premier ?",
+      "Affiche-moi les vulnérabilités par sévérité",
+      "Quel est mon score de risque global ?"
+    ]
+  },
+  "reports": {
+    "title": "Rapports",
+    "generate": "Générer un rapport",
+    "noScans": "Aucun scan terminé disponible. Téléchargez et traitez un scan d'abord pour générer des rapports.",
+    "table": {
+      "title": "Titre",
+      "type": "Type",
+      "format": "Format",
+      "generated": "Généré",
+      "actions": "Actions"
+    },
+    "previewTitle": "Prévisualiser le rapport",
+    "downloadTitle": "Télécharger le rapport",
+    "deleteTitle": "Supprimer le rapport",
+    "noReports": "Aucun rapport généré pour le moment",
+    "generateFirst": "Générez votre premier rapport à partir d'un scan terminé",
+    "dialog": {
+      "title": "Générer un nouveau rapport",
+      "description": "Générez un rapport détaillé d'évaluation des vulnérabilités qui combine un résumé analytique et une analyse technique avec des informations alimentées par l'IA et des recommandations de remédiation.",
+      "selectScan": "Sélectionner un scan",
+      "format": "Format",
+      "generating": "Génération du rapport...",
+      "detailedReport": "Rapport détaillé : Ce rapport complet comprendra un résumé analytique, les détails techniques des vulnérabilités, une analyse intelligente, une évaluation de l'impact commercial et des commandes de remédiation spécifiques au système d'exploitation alimentées par une technologie LLM avancée.",
+      "success": "Le rapport \"{{title}}\" a été généré avec succès !"
+    },
+    "preview": {
+      "pdfTitle": "Aperçu du rapport PDF",
+      "pdfDescription": "Les rapports PDF ne peuvent pas être prévisualisés directement. Cliquez sur télécharger pour voir le rapport complet.",
+      "downloadPdf": "Télécharger le rapport PDF",
+      "noContent": "Aucun contenu disponible pour l'aperçu."
+    },
+    "delete": {
+      "title": "Confirmer la suppression",
+      "question": "Êtes-vous sûr de vouloir supprimer le rapport \"{{title}}\" ?",
+      "description": "Cette action ne peut pas être annulée. Le fichier du rapport sera définitivement supprimé du système.",
+      "deleting": "Suppression en cours...",
+      "success": "Le rapport \"{{title}}\" a été supprimé avec succès !"
+    },
+    "errorLoad": "Échec du chargement des rapports",
+    "errorGenerate": "Échec de la génération du rapport",
+    "errorDownload": "Échec du téléchargement du rapport",
+    "errorView": "Échec du chargement du rapport",
+    "errorDelete": "Échec de la suppression du rapport"
+  },
+  "scanHistory": {
+    "title": "Historique des scans",
+    "table": {
+      "filename": "Nom du fichier",
+      "status": "Statut",
+      "uploadTime": "Heure de téléchargement",
+      "fileSize": "Taille du fichier",
+      "actions": "Actions"
+    },
+    "status": {
+      "completed": "Terminé",
+      "failed": "Échoué",
+      "processing": "Traitement",
+      "pending": "En attente"
+    },
+    "noScans": "Aucun scan trouvé",
+    "uploadFirst": "Téléchargez votre premier scan Nmap pour commencer",
+    "details": {
+      "title": "Détails du scan",
+      "status": "Statut",
+      "uploaded": "Téléchargé",
+      "processed": "Traité",
+      "summary": "Résumé du scan",
+      "totalHosts": "Total des hôtes",
+      "totalServices": "Total des services"
+    },
+    "delete": {
+      "title": "Confirmer la suppression",
+      "question": "Êtes-vous sûr de vouloir supprimer le scan \"{{filename}}\" ?",
+      "description": "Cette action ne peut pas être annulée.",
+      "error": "Échec de la suppression du scan"
+    },
+    "errorLoad": "Échec du chargement de l'historique des scans",
+    "errorLoadDetails": "Échec du chargement des détails du scan"
+  },
+  "search": {
+    "title": "Recherche avancée",
+    "placeholder": "Rechercher des vulnérabilités, scans, rapports...",
+    "errorNoQuery": "Veuillez entrer une requête de recherche ou appliquer des filtres",
+    "errorSearch": "La recherche a échoué",
+    "clearAll": "Tout effacer",
+    "advancedFilters": "Filtres avancés",
+    "dateRange": {
+      "title": "Plage de dates",
+      "from": "Du",
+      "to": "Au"
+    },
+    "severity": "Sévérité",
+    "services": "Services",
+    "cvssScore": {
+      "min": "Score CVSS Min",
+      "max": "Score CVSS Max"
+    },
+    "tabs": {
+      "all": "Tous les résultats ({{count}})",
+      "vulnerabilities": "Vulnérabilités ({{count}})",
+      "scans": "Scans ({{count}})",
+      "reports": "Rapports ({{count}})"
+    },
+    "noResults": "Aucun résultat trouvé",
+    "tryAdjusting": "Essayez d'ajuster votre requête de recherche ou vos filtres",
+    "viewAll": "Voir tous les {{count}} {{type}}",
+    "vulnerabilityResults": "Résultats des vulnérabilités",
+    "table": {
+      "service": "Service",
+      "port": "Port",
+      "severity": "Sévérité",
+      "cveId": "ID CVE",
+      "cvssScore": "Score CVSS",
+      "status": "Statut",
+      "actions": "Actions",
+      "filename": "Nom du fichier",
+      "targetHosts": "Hôtes cibles",
+      "uploadDate": "Date de téléchargement",
+      "title": "Titre",
+      "type": "Type",
+      "created": "Créé"
+    }
+  },
+  "admin": {
+    "title": "Tableau de bord de feedback administrateur",
+    "refreshLearning": "Actualiser l'apprentissage",
+    "tabs": {
+      "overview": "Aperçu et analyses",
+      "detailed": "Feedback détaillé",
+      "system": "Statut du système"
+    },
+    "metrics": {
+      "totalFeedback": "Feedback total",
+      "activeUsers": "Utilisateurs actifs",
+      "averageRating": "Note moyenne",
+      "learningStatus": "Statut d'apprentissage"
+    },
+    "learning": {
+      "title": "Système d'apprentissage IA",
+      "manage": "Gérer l'apprentissage",
+      "improvementsLoaded": "{{count}} améliorations chargées",
+      "dialogTitle": "Gestion de l'apprentissage IA",
+      "dialogDescription": "Appliquez les améliorations d'apprentissage du feedback à tous les types d'analyse. Cela améliorera les réponses de l'IA en fonction des modèles de feedback des utilisateurs.",
+      "dialogAlert": "Ce processus peut prendre quelques instants. Le système d'apprentissage sera mis à jour avec les dernières informations de feedback.",
+      "errorRefresh": "Échec de l'actualisation du système d'apprentissage",
+      "errorApply": "Échec de l'application de l'apprentissage"
+    },
+    "recentFeedback": "Feedback récent",
+    "filters": {
+      "title": "Filtres",
+      "clear": "Effacer les filtres",
+      "feedbackType": "Type de feedback",
+      "analysisType": "Type d'analyse",
+      "minRating": "Note min",
+      "maxRating": "Note max",
+      "timePeriod": "Période",
+      "any": "N'importe quel",
+      "all": "Tous",
+      "last7Days": "7 derniers jours",
+      "last30Days": "30 derniers jours",
+      "last90Days": "90 derniers jours",
+      "lastYear": "L'année dernière"
+    },
+    "table": {
+      "user": "Utilisateur",
+      "rating": "Note",
+      "type": "Type",
+      "comment": "Commentaire",
+      "date": "Date",
+      "actions": "Actions",
+      "id": "ID"
+    },
+    "system": {
+      "overview": "Aperçu du système",
+      "totalUsers": "Nombre total d'utilisateurs",
+      "totalFeedback": "Feedback total",
+      "totalScans": "Nombre total de scans",
+      "totalVulnerabilities": "Nombre total de vulnérabilités",
+      "health": "Indicateurs de santé",
+      "healthy": "Sain",
+      "active": "Actif",
+      "lowActivity": "Faible activité",
+      "error": "Erreur"
+    },
+    "delete": {
+      "title": "Confirmer la suppression",
+      "description": "Êtes-vous sûr de vouloir supprimer cette entrée de feedback ? Cette action ne peut pas être annulée.",
+      "error": "Échec de la suppression du feedback"
+    },
+    "errorLoadOverview": "Échec du chargement de l'aperçu du feedback",
+    "errorLoadDetailed": "Échec du chargement du feedback détaillé",
+    "errorLoadStatus": "Échec du chargement du statut du système",
+    "errorExport": "Échec de l'exportation des données"
+  },
+  "login": {
+    "title": "Connexion à VulnPatch AI",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "register": "Inscrivez-vous ici",
+    "error": "E-mail ou mot de passe invalide",
+    "welcome": "Bon retour !",
+    "loggingIn": "Connexion en cours..."
+  },
+  "commandBlock": {
+    "requiresSudo": "Nécessite des privilèges d'administrateur",
+    "destructive": "DESTRUCTEUR",
+    "destructiveWarning": "Cette commande effectue des modifications destructrices",
+    "destructiveAlert": "⚠️ Cette commande effectue des modifications destructrices. Veuillez vous assurer d'avoir des sauvegardes avant de l'exécuter."
+  }
+}

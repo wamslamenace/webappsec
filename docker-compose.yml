@@ -1,0 +1,89 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: vulnpatch_postgres
+    environment:
+      POSTGRES_DB: vulnpatch_db
+      POSTGRES_USER: vulnpatch
+      POSTGRES_PASSWORD: vulnpatch
+    ports:
+      - "54321:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - vulnpatch_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: vulnpatch_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - vulnpatch_network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vulnpatch_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://vulnpatch:vulnpatch@postgres:5432/vulnpatch_db
+      - REDIS_URL=redis://redis:6379
+      - ZAP_URL=http://owasp-zap:8080
+      - ZAP_API_KEY=vulnpatch_zap_key
+    volumes:
+      - ./backend:/app
+      - uploads_data:/app/uploads
+    depends_on:
+      - postgres
+      - redis
+      - owasp-zap
+    networks:
+      - vulnpatch_network
+    restart: unless-stopped
+
+  # OWASP ZAP
+  owasp-zap:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    container_name: vulnpatch_zap
+    command: zap.sh -daemon -host 0.0.0.0 -port 8080 -config api.key=vulnpatch_zap_key -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+    ports:
+      - "8081:8080"
+    networks:
+      - vulnpatch_network
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vulnpatch_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - vulnpatch_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads_data:
+
+networks:
+  vulnpatch_network:
+    driver: bridge
