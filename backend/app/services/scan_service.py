@@ -32,6 +32,39 @@ class ScanService:
         self.scanner_service = ScannerService()
         self.web_scanner = WebScannerService()
     
+    def _stringify_recommendation(self, rec) -> str:
+        """Ensure recommendation is a string for database storage"""
+        if rec is None:
+            return ""
+        if isinstance(rec, str):
+            return rec
+        if isinstance(rec, (list, dict)):
+            try:
+                # Try to make it a nice readable string if it's a structured list from LLM
+                import json
+                if isinstance(rec, list):
+                    lines = []
+                    for item in rec:
+                        if isinstance(item, dict):
+                            title = item.get("Section Title") or item.get("title") or ""
+                            details = item.get("Bullet point details") or item.get("details") or ""
+                            if title: lines.append(f"**{title}**")
+                            if isinstance(details, list):
+                                lines.extend([f"• {d}" for d in details])
+                            elif details:
+                                lines.append(f"• {details}")
+                            # Fallback for other dict structures
+                            if not title and not details:
+                                lines.append(f"• {json.dumps(item)}")
+                        else:
+                            lines.append(f"• {str(item)}")
+                    return "\n".join(lines)
+                return json.dumps(rec, indent=2)
+            except Exception as e:
+                logger.warning(f"Failed to stringify recommendation object: {e}")
+                return str(rec)
+        return str(rec)
+    
     async def create_scan(self, user_id: int, filename: str, xml_content: str, file_size: int) -> Scan:
         """Create and process a new scan"""
         
@@ -257,7 +290,7 @@ class ScanService:
                             protocol=service["protocol"],
                             description=wv["description"],
                             severity=wv["severity"],
-                            recommendation=wv["recommendation"],
+                            recommendation=self._stringify_recommendation(wv.get("recommendation", "")),
                             status="open"
                         )
                         await self._enhance_vulnerability_with_llm(vulnerability, service)
@@ -283,7 +316,7 @@ class ScanService:
                                 protocol=service["protocol"],
                                 description=finding["description"],
                                 severity=finding["severity"],
-                                recommendation=finding["recommendation"],
+                                recommendation=self._stringify_recommendation(finding.get("recommendation", "")),
                                 status="open"
                             )
                             vulnerabilities.append(vulnerability)
@@ -307,7 +340,7 @@ class ScanService:
                                     protocol=service["protocol"],
                                     description=finding["description"],
                                     severity=finding["severity"],
-                                    recommendation=finding["recommendation"],
+                                    recommendation=self._stringify_recommendation(finding.get("recommendation", "")),
                                     status="open"
                                 )
                                 vulnerabilities.append(vulnerability)
@@ -400,7 +433,7 @@ class ScanService:
             if analysis:
                 logger.info(f"LLM analysis successful for {service_name}")
                 if analysis.get("recommendation"):
-                    vulnerability.recommendation = analysis["recommendation"]
+                    vulnerability.recommendation = self._stringify_recommendation(analysis["recommendation"])
                 if analysis.get("remediation_commands"):
                     vulnerability.remediation_commands = analysis["remediation_commands"]
                 if analysis.get("severity") and not vulnerability.cvss_score:
@@ -412,7 +445,7 @@ class ScanService:
             logger.error(f"LLM analysis failed for {service.get('service_name', 'unknown')}: {e}")
             # Provide basic fallback recommendation
             if not vulnerability.recommendation:
-                vulnerability.recommendation = f"Update {service.get('service_name', 'service')} to the latest version and review security configuration"
+                vulnerability.recommendation = self._stringify_recommendation(f"Update {service.get('service_name', 'service')} to the latest version and review security configuration")
     
     def get_scan(self, scan_id: int) -> Optional[Scan]:
         """Get scan by ID"""
