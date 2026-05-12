@@ -609,74 +609,47 @@ class GeminiLLMService:
         
         return self.context_manager.truncate_context(summary)
     
-    def _build_enhanced_report_prompt(self, vuln_summary: str, report_type: str, language: str = "en") -> str:
-        """Build enhanced prompts for different report types"""
+    def _build_enhanced_report_prompt(self, vuln_summary: str, report_type: str, language: str = "fr") -> str:
+        """Build enhanced prompts for different report types based on a professional model"""
         
-        language_instruction = f"IMPORTANT: The entire report MUST be written in {'French' if language == 'fr' else 'English'}."
+        language_name = 'French' if language == 'fr' else 'English'
+        language_instruction = f"IMPORTANT: The entire report MUST be written in {language_name}."
         
         return f"""
 {language_instruction}
 
-Create a comprehensive detailed vulnerability assessment report for the following vulnerabilities:
+Créez un Rapport d’Évaluation des Vulnérabilités Web professionnel basé sur les données suivantes :
 
 {vuln_summary}
 
-Structure the report as follows:
+Vous DEVEZ suivre exactement cette structure en 9 points et utiliser le ton professionnel décrit :
 
-## Executive Summary
-Brief overview of the security posture, key concerns, and business impact
+1. **Introduction** : Présentez les résultats, l'objectif de l'analyse (identifier vulnérabilités exploitables, impact, recommandations précises). Mentionnez la combinaison de techniques automatisées et de validation intelligente.
 
-## Risk Assessment
-- Overall risk level and business impact
-- Financial implications of vulnerabilities
-- Regulatory compliance concerns
-- Most critical vulnerabilities requiring immediate attention
+2. **Résumé Exécutif** : Vue de haut niveau sur les failles (XSS, SQLi, HTTP non chiffré). Expliquez comment leur combinaison peut compromettre l'application. Donnez un niveau de risque global.
 
-## Key Findings
-- Trends and patterns in the vulnerability landscape
-- Areas of greatest concern
-- Strategic recommendations with business justification
+3. **Vue d’Ensemble Technique** : Analyse des points d'entrée (formulaires, paramètres URL, endpoints). Classement par sévérité, exploitabilité et impact.
 
-## Detailed Vulnerability Analysis
-For each critical vulnerability:
-- Technical description and attack vectors
-- Affected systems and services
-- Exploitation difficulty and likelihood
-- CVSS scores and severity ratings
+4. **Surface d’Attaque et Chaînes d’Exploitation** : Détaillez les points d'entrée sensibles et les scénarios d'attaque combinés (ex: XSS vers vol de cookie vers SQLi).
 
-## Remediation Commands
-For each vulnerability, include:
-- Specific terminal commands for patching
-- OS-specific instructions (Ubuntu/Debian, CentOS/RHEL)
-- Service restart procedures
-- Configuration file changes
+5. **Détails des Vulnérabilités** : Pour chaque faille trouvée, documentez :
+   - Localisation précise (endpoint, paramètre, méthode HTTP)
+   - Preuve d'exploitation théorique ou constatée
+   - Étapes de reproduction
+   - Impact réel sur le système
+   - Exploitabilité et accessibilité
+   - Recommandations spécifiques
 
-## Implementation Guide
-- Prerequisites and dependencies
-- Step-by-step remediation instructions with command examples
-- Rollback procedures with undo commands
-- Verification methods with test commands
+6. **Preuves d’Exploitation (PoC)** : Fournissez des exemples de requêtes HTTP, payloads et réponses attendues pour démontrer les failles.
 
-## Security Hardening Recommendations
-- Additional security measures with configuration examples
-- Preventive controls with implementation commands
-- Monitoring and detection improvements
+7. **Plan de Remédiation** : Priorisation des actions. Listez les corrections immédiates (requêtes préparées, encodage, HTTPS, validation entrées).
 
-## Remediation Roadmap
-- Immediate actions (next 24-48 hours)
-- Short-term goals (next 30 days)
-- Long-term security improvements
-- Resource requirements and timeline
+8. **Analyse et Recommandations Avancées** : Faiblesses structurelles, mécanismes de validation robustes, frameworks sécurisés, automatisation de la sécurité.
 
-## Quick Reference
-- Summary table of all critical commands
-- Emergency procedures for immediate threats
-
-Write in language suitable for both executives and IT professionals.
-Combine business impact analysis with technical implementation details.
-Format commands in code blocks for easy copying.
+9. **Conclusion** : Synthèse finale, posture de sécurité globale et recommandation de remédiation rapide.
 
 {language_instruction}
+Utilisez un format Markdown propre avec des titres clairs (##).
 """
     
     async def answer_query(
