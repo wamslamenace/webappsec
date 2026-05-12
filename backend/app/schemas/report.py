@@ -10,7 +10,7 @@ class ReportBase(BaseModel):
     scan_id: int
     report_type: str  # detailed
     format: str = "html"  # html, pdf, json
-    language: str = "en"  # en, fr
+    language: str = "fr"  # en, fr
 
 
 class ReportCreate(ReportBase):

@@ -26,7 +26,7 @@ class ReportService:
         report_type: str,
         user_id: int,
         format: str = "html",
-        language: str = "en"
+        language: str = "fr"
     ) -> Report:
         """Generate a new report"""
         
@@ -88,13 +88,13 @@ class ReportService:
         
         return report
     
-    def _generate_fallback_report(self, vulnerabilities: List[Vulnerability], report_type: str, language: str = "en") -> str:
+    def _generate_fallback_report(self, vulnerabilities: List[Vulnerability], report_type: str, language: str = "fr") -> str:
         """Generate fallback report when LLM is unavailable"""
         
         # Single detailed report type combining both executive and technical content
         return self._generate_detailed_fallback(vulnerabilities, language)
     
-    def _generate_detailed_fallback(self, vulnerabilities: List[Vulnerability], language: str = "en") -> str:
+    def _generate_detailed_fallback(self, vulnerabilities: List[Vulnerability], language: str = "fr") -> str:
         """Generate detailed report fallback combining executive and technical content"""
         
         total = len(vulnerabilities)
@@ -214,7 +214,7 @@ Please coordinate with your IT team to implement the recommended remediation act
         
         return content
     
-    async def _save_report_file(self, report: Report, content: str, format: str, language: str = "en") -> str:
+    async def _save_report_file(self, report: Report, content: str, format: str, language: str = "fr") -> str:
         """Save report content to file"""
         
         # Create reports directory if it doesn't exist
@@ -260,7 +260,7 @@ Please coordinate with your IT team to implement the recommended remediation act
         
         return file_path
     
-    async def _generate_pdf_report(self, report: Report, file_path: str, language: str = "en") -> None:
+    async def _generate_pdf_report(self, report: Report, file_path: str, language: str = "fr") -> None:
         """Generate PDF report using the PDF generator"""
         
         # Get scan and vulnerability data

@@ -260,7 +260,7 @@ class PDFReportGenerator:
         vulnerabilities: List[Dict[str, Any]],
         output_path: str,
         report_type: str = "comprehensive",
-        language: str = "en"
+        language: str = "fr"
     ) -> str:
         """Generate a comprehensive vulnerability assessment PDF report"""
         
